@@ -1,0 +1,68 @@
+<%- include("partials/head", { title: "Lý lịch sinh viên - VKU Care" }) %>
+
+<div class="app">
+  <%- include("partials/nav") %>
+
+  <main class="main">
+    <%- include("partials/topbar", { pageTitle: "Lý lịch sinh viên" }) %>
+
+    <section class="content">
+      <div class="profile-hero panel">
+        <div class="profile-avatar-large"><%= initials(user.name) %></div>
+        <div class="profile-hero-main">
+          <div class="eyebrow">HỒ SƠ SINH VIÊN</div>
+          <h1><%= user.name %></h1>
+          <p><%= user.studentId || 'Sinh viên VKU' %> · <%= user.major || 'Chưa cập nhật ngành' %></p>
+        </div>
+        <span class="student-status"><i></i><%= user.academicStatus || 'Đang học' %></span>
+      </div>
+
+      <% if (message) { %><div class="alert success"><%= message %></div><% } %>
+      <% if (error) { %><div class="alert error"><%= error %></div><% } %>
+
+      <div class="profile-grid-modern">
+        <section class="panel profile-section">
+          <div class="panel-head"><div><span class="panel-kicker">CÁ NHÂN</span><h2>Thông tin cơ bản</h2></div></div>
+          <div class="info-grid">
+            <div class="info-field"><span>Họ và tên</span><strong><%= user.name %></strong></div>
+            <div class="info-field"><span>Mã số sinh viên</span><strong><%= user.studentId || 'Chưa cập nhật' %></strong></div>
+            <div class="info-field"><span>Ngày sinh</span><strong><%= user.dateOfBirth || 'Chưa cập nhật' %></strong></div>
+            <div class="info-field"><span>Giới tính</span><strong><%= user.gender || 'Chưa cập nhật' %></strong></div>
+            <div class="info-field"><span>Email VKU</span><strong><%= user.email %></strong></div>
+            <div class="info-field"><span>Số điện thoại</span><strong><%= user.phone || 'Chưa cập nhật' %></strong></div>
+          </div>
+        </section>
+
+        <section class="panel profile-section">
+          <div class="panel-head"><div><span class="panel-kicker">HỌC TẬP</span><h2>Thông tin đào tạo</h2></div></div>
+          <div class="info-grid">
+            <div class="info-field"><span>Lớp</span><strong><%= user.className || 'Chưa cập nhật' %></strong></div>
+            <div class="info-field"><span>Khóa học</span><strong><%= user.course || 'Chưa cập nhật' %></strong></div>
+            <div class="info-field info-wide"><span>Ngành</span><strong><%= user.major || 'Chưa cập nhật' %></strong></div>
+            <div class="info-field info-wide"><span>Khoa</span><strong><%= user.faculty || user.department %></strong></div>
+            <div class="info-field info-wide"><span>Cố vấn học tập</span><strong><%= user.advisor || 'Chưa cập nhật' %></strong></div>
+          </div>
+        </section>
+      </div>
+
+      <section class="panel security-panel" id="security">
+        <div class="security-copy">
+          <div class="security-icon">⌁</div>
+          <div>
+            <span class="panel-kicker">BẢO MẬT TÀI KHOẢN</span>
+            <h2>Đổi mật khẩu</h2>
+            <p>Nên sử dụng mật khẩu tối thiểu 6 ký tự và không dùng chung với tài khoản khác.</p>
+          </div>
+        </div>
+        <form method="POST" action="/profile/password" class="password-form">
+          <div><label>Mật khẩu hiện tại</label><input name="currentPassword" type="password" required autocomplete="current-password" placeholder="Nhập mật khẩu hiện tại"></div>
+          <div><label>Mật khẩu mới</label><input name="newPassword" type="password" required minlength="6" autocomplete="new-password" placeholder="Tối thiểu 6 ký tự"></div>
+          <div><label>Nhập lại mật khẩu mới</label><input name="confirmPassword" type="password" required minlength="6" autocomplete="new-password" placeholder="Nhập lại mật khẩu"></div>
+          <button class="primary" type="submit">Cập nhật mật khẩu</button>
+        </form>
+      </section>
+    </section>
+  </main>
+</div>
+
+<%- include("partials/foot") %>

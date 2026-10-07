@@ -1,0 +1,32 @@
+<%- include("partials/head", { title: "Quản trị - VKU Care" }) %>
+
+<div class="app">
+  <%- include("partials/nav") %>
+  <main class="main">
+    <%- include("partials/topbar", { pageTitle: "Quản trị hệ thống" }) %>
+
+    <section class="content">
+      <div class="hero">
+        <div><div class="eyebrow">SYSTEM CONTROL</div><h1>Quản trị hệ thống</h1><p>Quản lý tài khoản, hồ sơ và tài liệu nghiệp vụ.</p></div>
+      </div>
+
+      <div class="stats">
+        <article class="stat stat-blue"><div class="stat-top"><span class="stat-icon">◉</span><small>Tài khoản</small></div><strong><%= users.length %></strong><span>Đang hoạt động</span></article>
+        <article class="stat stat-orange"><div class="stat-top"><span class="stat-icon">▣</span><small>Hồ sơ</small></div><strong><%= requests.length %></strong><span>Toàn hệ thống</span></article>
+        <article class="stat stat-violet"><div class="stat-top"><span class="stat-icon">▤</span><small>Tài liệu</small></div><strong><%= documents.length %></strong><span>Kho tri thức</span></article>
+        <article class="stat stat-green"><div class="stat-top"><span class="stat-icon">↑</span><small>API uptime</small></div><strong>99.98%</strong><span>Hệ thống ổn định</span></article>
+      </div>
+
+      <div class="two-columns admin-columns">
+        <section class="panel"><div class="panel-head"><div><span class="panel-kicker">USERS</span><h2>Tài khoản hệ thống</h2></div></div>
+          <% users.forEach(account => { %><div class="request-card-row"><div class="avatar mini"><%= initials(account.name) %></div><div class="request-card-main"><b><%= account.name %></b><small><%= account.email %> · <%= account.department %></small></div><span class="tag tag-neutral"><%= account.role %></span></div><% }) %>
+        </section>
+        <section class="panel"><div class="panel-head"><div><span class="panel-kicker">KNOWLEDGE BASE</span><h2>Tài liệu nghiệp vụ</h2></div></div>
+          <% documents.forEach(document => { %><div class="request-card-row"><div class="request-card-icon">▤</div><div class="request-card-main"><b><%= document.title %></b><small><%= document.department %> · v<%= document.version %></small></div><span class="tag tag-done"><%= document.status %></span></div><% }) %>
+        </section>
+      </div>
+    </section>
+  </main>
+</div>
+
+<%- include("partials/foot") %>

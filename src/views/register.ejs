@@ -1,0 +1,30 @@
+<%- include("partials/head", { title: "Đăng ký - VKU Care" }) %>
+
+<main class="auth-page">
+  <section class="auth-card auth-card-wide">
+    <div class="auth-brand-row">
+      <a href="/login" class="vku-logo auth-vku-logo">VKU</a>
+    </div>
+
+    <div class="auth-heading">
+      <span class="eyebrow">CREATE ACCOUNT</span>
+      <h1>Tạo tài khoản</h1>
+      <p>Đăng ký tài khoản để gửi và theo dõi hồ sơ hỗ trợ.</p>
+    </div>
+
+    <% if (error) { %><div class="alert error"><%= error %></div><% } %>
+
+    <form method="POST" action="/register" class="auth-form">
+      <label>Họ và tên</label><input name="name" required placeholder="Nguyễn Văn A" autocomplete="name">
+      <label>Email</label><input name="email" type="email" required placeholder="name@vku.edu.vn" autocomplete="email">
+      <label>Mật khẩu</label><input name="password" type="password" minlength="6" required placeholder="Tối thiểu 6 ký tự" autocomplete="new-password">
+      <label>Vai trò</label>
+      <select name="role"><option value="student">Sinh viên</option><option value="staff">Nhân viên</option></select>
+      <button class="primary full auth-submit">Đăng ký <span>→</span></button>
+    </form>
+
+    <p class="center auth-switch">Đã có tài khoản? <a href="/login">Đăng nhập</a></p>
+  </section>
+</main>
+
+<%- include("partials/foot") %>

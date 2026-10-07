@@ -1,0 +1,61 @@
+<%- include("partials/head", { title: "Hồ sơ - VKU Care" }) %>
+
+<div class="app">
+  <%- include("partials/nav") %>
+
+  <main class="main">
+    <%- include("partials/topbar", { pageTitle: user.role === 'student' ? 'Hồ sơ của tôi' : 'Danh sách hồ sơ' }) %>
+
+    <section class="content">
+      <div class="hero">
+        <div>
+          <div class="eyebrow">REQUEST TRACKING</div>
+          <h1><%= user.role === 'student' ? 'Hồ sơ của tôi' : 'Quản lý hồ sơ' %></h1>
+          <p><%= user.role === 'student' ? 'Theo dõi tiến độ, thời hạn và kết quả từng yêu cầu.' : 'Tìm kiếm, phân công và cập nhật trạng thái hồ sơ.' %></p>
+        </div>
+        <% if (user.role === "student") { %><a class="primary primary-large" href="/requests/new">＋ Tạo hồ sơ</a><% } %>
+      </div>
+
+      <% if (message) { %><div class="alert success"><%= message %></div><% } %>
+
+      <section class="panel request-list-panel">
+        <form class="filters filters-modern" method="GET" action="/requests">
+          <div class="search-field"><span>⌕</span><input name="q" value="<%= filters.q %>" placeholder="Tìm mã hồ sơ, loại yêu cầu..."></div>
+          <select name="status">
+            <option value="">Tất cả trạng thái</option>
+            <option value="Chờ tiếp nhận" <%= filters.status === 'Chờ tiếp nhận' ? 'selected' : '' %>>Chờ tiếp nhận</option>
+            <option value="Đang xử lý" <%= filters.status === 'Đang xử lý' ? 'selected' : '' %>>Đang xử lý</option>
+            <option value="Cần bổ sung" <%= filters.status === 'Cần bổ sung' ? 'selected' : '' %>>Cần bổ sung</option>
+            <option value="Hoàn thành" <%= filters.status === 'Hoàn thành' ? 'selected' : '' %>>Hoàn thành</option>
+          </select>
+          <button class="secondary">Lọc</button>
+        </form>
+
+        <div class="table-wrap">
+          <table class="modern-table">
+            <thead><tr><th>Mã hồ sơ</th><th>Loại yêu cầu</th><% if (user.role !== 'student') { %><th>Sinh viên</th><% } %><th>Bộ phận</th><th>Ngày gửi</th><th>Trạng thái</th><th></th></tr></thead>
+            <tbody>
+              <% requests.forEach(request => { %>
+                <tr>
+                  <td><a class="request-code" href="/requests/<%= request.id %>"><%= request.id %></a></td>
+                  <td><strong><%= request.type %></strong></td>
+                  <% if (user.role !== 'student') { %><td><%= request.student %></td><% } %>
+                  <td><%= request.department %></td>
+                  <td><%= request.createdAt %></td>
+                  <td><span class="tag tag-<%= statusClass(request.status) %>"><%= request.status %></span></td>
+                  <td><a class="table-action" href="/requests/<%= request.id %>">Xem →</a></td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+
+        <% if (!requests.length) { %>
+          <div class="empty-state"><div class="empty-icon">⌕</div><h3>Không tìm thấy hồ sơ</h3><p>Thử thay đổi từ khóa hoặc trạng thái lọc.</p></div>
+        <% } %>
+      </section>
+    </section>
+  </main>
+</div>
+
+<%- include("partials/foot") %>

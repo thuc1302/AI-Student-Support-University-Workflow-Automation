@@ -1,0 +1,50 @@
+<%- include("partials/head", { title: "Chat AI - VKU Care" }) %>
+
+<div class="app chat-app">
+  <%- include("partials/nav") %>
+
+  <main class="main chat-main">
+    <%- include("partials/topbar", { pageTitle: "Chat AI" }) %>
+
+    <section class="content chat-content">
+      <div class="chat-shell panel">
+        <div class="chat-header">
+          <div class="ai-badge">✦</div>
+          <div>
+            <h1>VKU AI Assistant</h1>
+            <p>Tra cứu thủ tục, giấy tờ và quy trình hỗ trợ sinh viên.</p>
+          </div>
+          <span class="online-badge"><i></i> Trực tuyến</span>
+        </div>
+
+        <div class="suggestion-bar">
+          <button type="button" class="suggestion-chip" data-question="Thủ tục xác nhận sinh viên cần những gì?">Xác nhận sinh viên</button>
+          <button type="button" class="suggestion-chip" data-question="Làm sao để xin cấp bảng điểm?">Cấp bảng điểm</button>
+          <button type="button" class="suggestion-chip" data-question="Hồ sơ miễn giảm học phí cần gì?">Miễn giảm học phí</button>
+          <button type="button" class="suggestion-chip" data-question="Tôi theo dõi trạng thái hồ sơ ở đâu?">Theo dõi hồ sơ</button>
+        </div>
+
+        <div id="messages" class="messages" aria-live="polite">
+          <div class="message-row ai-row">
+            <div class="message-avatar ai-avatar">✦</div>
+            <div class="message ai">
+              <strong>Xin chào <%= user.name %>!</strong>
+              <p>Mình có thể giúp bạn tìm thủ tục VKU, giấy tờ cần chuẩn bị và hướng dẫn theo dõi hồ sơ. Hãy chọn một gợi ý phía trên hoặc nhập câu hỏi.</p>
+              <small class="source">Nguồn: Kho hướng dẫn nghiệp vụ VKU · bản mô phỏng</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="chat-composer-wrap">
+          <form id="chat-form" class="chat-form">
+            <input id="chat-input" required autocomplete="off" placeholder="Nhập câu hỏi về thủ tục VKU...">
+            <button class="primary send-button" aria-label="Gửi câu hỏi">Gửi <span>→</span></button>
+          </form>
+          <small class="chat-note">VKU AI có thể trả lời chưa chính xác. Hãy kiểm tra nguồn hướng dẫn đi kèm.</small>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<%- include("partials/foot") %>

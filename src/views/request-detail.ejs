@@ -1,0 +1,62 @@
+<%- include("partials/head", { title: request.id + " - VKU Care" }) %>
+
+<div class="app">
+  <%- include("partials/nav") %>
+  <main class="main">
+    <%- include("partials/topbar", { pageTitle: "Chi tiết hồ sơ" }) %>
+
+    <section class="content">
+      <a class="back-link" href="/requests">← Quay lại danh sách</a>
+
+      <div class="request-detail-hero panel">
+        <div>
+          <div class="eyebrow"><%= request.id %></div>
+          <h1><%= request.type %></h1>
+          <p>Đã gửi ngày <%= request.createdAt %> · <%= request.department %></p>
+        </div>
+        <span class="tag tag-large tag-<%= statusClass(request.status) %>"><%= request.status %></span>
+      </div>
+
+      <div class="request-detail-grid">
+        <section class="panel">
+          <div class="panel-head"><div><span class="panel-kicker">TIẾN TRÌNH</span><h2>Lịch sử xử lý</h2></div></div>
+          <div class="timeline">
+            <% (request.history || []).forEach((item, index) => { %>
+              <div class="timeline-item <%= item.done ? 'done' : '' %>">
+                <div class="timeline-dot"><%= item.done ? '✓' : index + 1 %></div>
+                <div><strong><%= item.label %></strong><small><%= item.time %></small></div>
+              </div>
+            <% }) %>
+          </div>
+        </section>
+
+        <aside class="panel request-summary">
+          <div class="panel-head"><div><span class="panel-kicker">THÔNG TIN</span><h2>Chi tiết yêu cầu</h2></div></div>
+          <div class="summary-row"><span>Sinh viên</span><strong><%= request.student %></strong></div>
+          <div class="summary-row"><span>Bộ phận</span><strong><%= request.department %></strong></div>
+          <div class="summary-row"><span>Người xử lý</span><strong><%= request.assignee || 'Chưa phân công' %></strong></div>
+          <div class="summary-row"><span>Hạn dự kiến</span><strong><%= request.dueAt || 'Đang cập nhật' %></strong></div>
+          <div class="summary-description"><span>Nội dung</span><p><%= request.description %></p></div>
+        </aside>
+      </div>
+
+      <% if (user.role === 'staff' || user.role === 'admin') { %>
+        <section class="panel update-panel">
+          <div><span class="panel-kicker">XỬ LÝ HỒ SƠ</span><h2>Cập nhật trạng thái</h2><p>Thay đổi trạng thái và người phụ trách hồ sơ.</p></div>
+          <form method="POST" action="/requests/<%= request.id %>/update" class="update-form">
+            <select name="status">
+              <option <%= request.status === 'Chờ tiếp nhận' ? 'selected' : '' %>>Chờ tiếp nhận</option>
+              <option <%= request.status === 'Đang xử lý' ? 'selected' : '' %>>Đang xử lý</option>
+              <option <%= request.status === 'Cần bổ sung' ? 'selected' : '' %>>Cần bổ sung</option>
+              <option <%= request.status === 'Hoàn thành' ? 'selected' : '' %>>Hoàn thành</option>
+            </select>
+            <input name="assignee" value="<%= request.assignee %>" placeholder="Người xử lý">
+            <button class="primary">Lưu cập nhật</button>
+          </form>
+        </section>
+      <% } %>
+    </section>
+  </main>
+</div>
+
+<%- include("partials/foot") %>

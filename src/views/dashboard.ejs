@@ -1,0 +1,124 @@
+<%- include("partials/head", { title: "Tổng quan - VKU Care" }) %>
+
+<div class="app">
+  <%- include("partials/nav") %>
+
+  <main class="main">
+    <%- include("partials/topbar", { pageTitle: "Tổng quan" }) %>
+
+    <section class="content dashboard-content">
+      <div class="hero dashboard-hero">
+        <div>
+          <div class="eyebrow">VKU STUDENT SUPPORT PORTAL</div>
+          <h1>Xin chào, <%= user.name %> <span class="wave">👋</span></h1>
+          <p><%= user.role === 'student' ? 'Theo dõi hồ sơ, thủ tục và các việc cần xử lý tại một nơi.' : 'Theo dõi và xử lý các yêu cầu hỗ trợ sinh viên tại VKU.' %></p>
+        </div>
+
+        <% if (user.role === "student") { %>
+          <a class="primary primary-large" href="/requests/new">＋ Tạo yêu cầu mới</a>
+        <% } else { %>
+          <a class="primary primary-large" href="/requests">Mở danh sách hồ sơ →</a>
+        <% } %>
+      </div>
+
+      <div class="stats">
+        <article class="stat stat-blue">
+          <div class="stat-top"><span class="stat-icon">↻</span><small>Đang xử lý</small></div>
+          <strong><%= stats.processing %></strong>
+          <span><%= stats.processing ? 'Đang được bộ phận phụ trách xử lý' : 'Không có hồ sơ đang xử lý' %></span>
+        </article>
+
+        <article class="stat stat-green">
+          <div class="stat-top"><span class="stat-icon">✓</span><small>Đã hoàn thành</small></div>
+          <strong><%= stats.completed %></strong>
+          <span>Hồ sơ đã có kết quả</span>
+        </article>
+
+        <article class="stat stat-orange">
+          <div class="stat-top"><span class="stat-icon">!</span><small>Cần bổ sung</small></div>
+          <strong><%= stats.supplement %></strong>
+          <span><%= stats.supplement ? 'Cần kiểm tra trước hạn' : 'Không có yêu cầu bổ sung' %></span>
+        </article>
+
+        <article class="stat stat-violet">
+          <div class="stat-top"><span class="stat-icon">⌛</span><small>Chờ tiếp nhận</small></div>
+          <strong><%= stats.pending %></strong>
+          <span>Đang chờ bộ phận tiếp nhận</span>
+        </article>
+      </div>
+
+      <div class="dashboard-grid">
+        <section class="panel recent-panel">
+          <div class="panel-head">
+            <div>
+              <span class="panel-kicker">HOẠT ĐỘNG GẦN ĐÂY</span>
+              <h2><%= user.role === 'student' ? 'Hồ sơ của bạn' : 'Hồ sơ mới nhất' %></h2>
+            </div>
+            <a href="/requests">Xem tất cả →</a>
+          </div>
+
+          <% if (!requests.length) { %>
+            <div class="empty-state">
+              <div class="empty-icon">▣</div>
+              <h3>Chưa có hồ sơ</h3>
+              <p>Tạo yêu cầu đầu tiên để bắt đầu theo dõi tiến trình.</p>
+            </div>
+          <% } %>
+
+          <% requests.forEach(request => { %>
+            <a class="request-card-row" href="/requests/<%= request.id %>">
+              <div class="request-card-icon">▤</div>
+              <div class="request-card-main">
+                <b><%= request.type %></b>
+                <small><%= request.id %> · <%= request.department %> · <%= request.createdAt %></small>
+              </div>
+              <span class="tag tag-<%= statusClass(request.status) %>"><%= request.status %></span>
+              <span class="row-arrow">›</span>
+            </a>
+          <% }) %>
+        </section>
+
+        <aside class="panel notification-panel">
+          <div class="panel-head">
+            <div>
+              <span class="panel-kicker">CẦN CHÚ Ý</span>
+              <h2>Thông báo mới</h2>
+            </div>
+            <span class="notification-count"><%= notifications.length %></span>
+          </div>
+
+          <div class="notification-list">
+            <% notifications.forEach(item => { %>
+              <div class="notification-item">
+                <span class="notification-icon <%= item.tone %>">•</span>
+                <div>
+                  <strong><%= item.title %></strong>
+                  <small><%= item.meta %></small>
+                </div>
+              </div>
+            <% }) %>
+          </div>
+
+          <% if (user.role === 'student') { %>
+            <a class="soft-button" href="/procedures">Xem thủ tục & checklist →</a>
+          <% } %>
+        </aside>
+      </div>
+
+      <% if (user.role === 'student') { %>
+        <section class="quick-actions">
+          <div class="section-title-row">
+            <div><span class="panel-kicker">TRUY CẬP NHANH</span><h2>Bạn muốn làm gì?</h2></div>
+          </div>
+          <div class="quick-action-grid">
+            <a href="/chat" class="quick-action"><span class="quick-icon blue">✦</span><div><strong>Hỏi VKU AI</strong><small>Tra cứu thủ tục và nguồn hướng dẫn</small></div><span>→</span></a>
+            <a href="/procedures" class="quick-action"><span class="quick-icon orange">✓</span><div><strong>Tìm thủ tục</strong><small>Xem giấy tờ và checklist cần chuẩn bị</small></div><span>→</span></a>
+            <a href="/profile" class="quick-action"><span class="quick-icon violet">◉</span><div><strong>Lý lịch sinh viên</strong><small>Kiểm tra thông tin và bảo mật tài khoản</small></div><span>→</span></a>
+          </div>
+        </section>
+      <% } %>
+    </section>
+  </main>
+</div>
+
+<%- include("partials/foot") %>

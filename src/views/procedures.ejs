@@ -1,0 +1,90 @@
+<%- include("partials/head", { title: "Thủ tục & checklist - VKU Care" }) %>
+
+<div class="app">
+  <%- include("partials/nav") %>
+
+  <main class="main">
+    <%- include("partials/topbar", { pageTitle: "Thủ tục & checklist" }) %>
+
+    <section class="content">
+      <div class="hero procedures-hero">
+        <div>
+          <div class="eyebrow">HƯỚNG DẪN HỒ SƠ</div>
+          <h1>Tìm thủ tục bạn cần</h1>
+          <p>Kiểm tra giấy tờ, thời gian xử lý và checklist trước khi gửi hồ sơ.</p>
+        </div>
+        <a class="secondary" href="/chat">✦ Hỏi VKU AI</a>
+      </div>
+
+      <div class="procedure-toolbar panel">
+        <input id="procedure-search" placeholder="Tìm theo tên thủ tục..." autocomplete="off">
+        <div class="procedure-tabs" role="tablist">
+          <button class="procedure-tab active" type="button" data-category="all">Tất cả</button>
+          <button class="procedure-tab" type="button" data-category="hoc-vu">Học vụ</button>
+          <button class="procedure-tab" type="button" data-category="khao-thi">Khảo thí</button>
+          <button class="procedure-tab" type="button" data-category="ctsv">Công tác sinh viên</button>
+        </div>
+      </div>
+
+      <div class="procedure-grid" id="procedure-grid">
+        <article class="procedure-card" data-category="ctsv" data-name="xác nhận sinh viên">
+          <div class="procedure-card-head"><span class="procedure-card-icon blue">▤</span><span class="procedure-category">Công tác sinh viên</span></div>
+          <h3>Xác nhận sinh viên</h3>
+          <p>Dùng cho học bổng, vay vốn, nghĩa vụ quân sự và các thủ tục hành chính.</p>
+          <div class="procedure-meta"><span>3 giấy tờ</span><span>2–3 ngày</span></div>
+          <ul class="mini-checklist"><li>CCCD / thẻ sinh viên</li><li>Mục đích xin xác nhận</li><li>Thông tin liên hệ</li></ul>
+          <a class="soft-button" href="/requests/new">Tạo hồ sơ →</a>
+        </article>
+
+        <article class="procedure-card" data-category="hoc-vu" data-name="cấp bảng điểm bảng điểm">
+          <div class="procedure-card-head"><span class="procedure-card-icon green">▦</span><span class="procedure-category">Học vụ</span></div>
+          <h3>Cấp bảng điểm</h3>
+          <p>Yêu cầu cấp bảng điểm học kỳ hoặc toàn khóa phục vụ học tập và hồ sơ cá nhân.</p>
+          <div class="procedure-meta"><span>2 giấy tờ</span><span>1–2 ngày</span></div>
+          <ul class="mini-checklist"><li>MSSV chính xác</li><li>Loại bảng điểm cần cấp</li><li>Hình thức nhận kết quả</li></ul>
+          <a class="soft-button" href="/requests/new">Tạo hồ sơ →</a>
+        </article>
+
+        <article class="procedure-card" data-category="ctsv" data-name="miễn giảm học phí hoàn cảnh">
+          <div class="procedure-card-head"><span class="procedure-card-icon orange">◇</span><span class="procedure-category">Công tác sinh viên</span></div>
+          <h3>Miễn giảm học phí</h3>
+          <p>Tiếp nhận hồ sơ chính sách, hoàn cảnh và các minh chứng theo quy định.</p>
+          <div class="procedure-meta"><span>4 giấy tờ</span><span>3–5 ngày</span></div>
+          <ul class="mini-checklist"><li>Đơn đề nghị</li><li>Giấy tờ chứng minh</li><li>CCCD</li></ul>
+          <a class="soft-button" href="/requests/new">Tạo hồ sơ →</a>
+        </article>
+
+        <article class="procedure-card" data-category="hoc-vu" data-name="đăng ký học lại học lại">
+          <div class="procedure-card-head"><span class="procedure-card-icon violet">↻</span><span class="procedure-category">Học vụ</span></div>
+          <h3>Đăng ký học lại</h3>
+          <p>Kiểm tra học phần, điều kiện tiên quyết và thời gian đăng ký trước khi gửi yêu cầu.</p>
+          <div class="procedure-meta"><span>1 biểu mẫu</span><span>1 ngày</span></div>
+          <ul class="mini-checklist"><li>Mã học phần</li><li>Lớp dự kiến</li><li>Minh chứng nếu được yêu cầu</li></ul>
+          <a class="soft-button" href="/requests/new">Tạo hồ sơ →</a>
+        </article>
+
+        <article class="procedure-card" data-category="khao-thi" data-name="phúc khảo điểm thi">
+          <div class="procedure-card-head"><span class="procedure-card-icon red">?</span><span class="procedure-category">Khảo thí</span></div>
+          <h3>Phúc khảo điểm thi</h3>
+          <p>Gửi đề nghị kiểm tra lại kết quả thi theo thời hạn công bố của học phần.</p>
+          <div class="procedure-meta"><span>2 thông tin</span><span>5–7 ngày</span></div>
+          <ul class="mini-checklist"><li>Mã học phần</li><li>Ca thi / học kỳ</li><li>Lý do đề nghị</li></ul>
+          <a class="soft-button" href="/requests/new">Tạo hồ sơ →</a>
+        </article>
+
+        <article class="procedure-card" data-category="ctsv" data-name="xác nhận hoàn cảnh sinh viên">
+          <div class="procedure-card-head"><span class="procedure-card-icon teal">⌂</span><span class="procedure-category">Công tác sinh viên</span></div>
+          <h3>Xác nhận hoàn cảnh</h3>
+          <p>Xác nhận thông tin hoàn cảnh để hoàn thiện hồ sơ học bổng hoặc hỗ trợ sinh viên.</p>
+          <div class="procedure-meta"><span>4 giấy tờ</span><span>3–5 ngày</span></div>
+          <ul class="mini-checklist"><li>Đơn xác nhận</li><li>Minh chứng liên quan</li><li>Thông tin gia đình</li></ul>
+          <a class="soft-button" href="/requests/new">Tạo hồ sơ →</a>
+        </article>
+      </div>
+
+      <div class="procedure-empty" id="procedure-empty" hidden>Không tìm thấy thủ tục phù hợp.</div>
+    </section>
+  </main>
+</div>
+
+<%- include("partials/foot") %>

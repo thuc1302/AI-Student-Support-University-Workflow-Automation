@@ -1,0 +1,34 @@
+<header class="topbar">
+  <button class="mobile-menu-button" type="button" aria-label="Mở menu">☰</button>
+  <div class="breadcrumb">
+    <span>VKU Care</span>
+    <span class="breadcrumb-sep">/</span>
+    <strong><%= pageTitle %></strong>
+  </div>
+
+  <div class="topbar-actions">
+    <% if (user.role === 'student') { %>
+      <button class="icon-button" type="button" aria-label="Thông báo" title="Thông báo">
+        <span>♢</span><i class="notification-dot"></i>
+      </button>
+    <% } %>
+
+    <details class="user-menu">
+      <summary>
+        <span class="avatar"><%= initials(user.name) %></span>
+        <span class="user-menu-text">
+          <strong><%= user.name %></strong>
+          <small><%= user.role === 'student' ? (user.studentId || 'Sinh viên') : user.department %></small>
+        </span>
+        <span class="chevron">⌄</span>
+      </summary>
+      <div class="user-dropdown">
+        <% if (user.role === 'student') { %>
+          <a href="/profile">Lý lịch sinh viên</a>
+          <a href="/profile#security">Đổi mật khẩu</a>
+        <% } %>
+        <a href="/logout" class="danger-link">Đăng xuất</a>
+      </div>
+    </details>
+  </div>
+</header>

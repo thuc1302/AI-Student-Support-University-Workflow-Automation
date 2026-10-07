@@ -1,0 +1,53 @@
+<%- include("partials/head", { title: "Tạo hồ sơ - VKU Care" }) %>
+
+<div class="app">
+  <%- include("partials/nav") %>
+  <main class="main">
+    <%- include("partials/topbar", { pageTitle: "Tạo hồ sơ" }) %>
+
+    <section class="content">
+      <a class="back-link" href="/requests">← Quay lại hồ sơ của tôi</a>
+      <div class="create-request-layout">
+        <section class="panel form-panel form-panel-modern">
+          <div class="eyebrow">NEW REQUEST</div>
+          <h1>Tạo hồ sơ mới</h1>
+          <p>Điền đầy đủ thông tin để bộ phận phụ trách tiếp nhận nhanh hơn.</p>
+
+          <form method="POST" action="/requests">
+            <label>Loại yêu cầu</label>
+            <select name="type" required>
+              <option value="Xác nhận sinh viên">Xác nhận sinh viên</option>
+              <option value="Cấp bảng điểm">Cấp bảng điểm</option>
+              <option value="Giấy xác nhận hoàn cảnh">Giấy xác nhận hoàn cảnh</option>
+              <option value="Đăng ký học lại">Đăng ký học lại</option>
+              <option value="Phúc khảo điểm thi">Phúc khảo điểm thi</option>
+            </select>
+
+            <label>Bộ phận xử lý</label>
+            <select name="department">
+              <option value="Phòng CTSV">Phòng Công tác sinh viên</option>
+              <option value="Phòng Đào tạo">Phòng Đào tạo</option>
+              <option value="Phòng Khảo thí">Phòng Khảo thí</option>
+              <option value="Phòng Tài chính">Phòng Tài chính</option>
+            </select>
+
+            <label>Mô tả yêu cầu</label>
+            <textarea name="description" rows="7" required placeholder="Mô tả mục đích, thông tin liên quan và điều bạn cần hỗ trợ..."></textarea>
+
+            <div class="form-actions"><button class="primary">Gửi hồ sơ</button><a class="secondary" href="/requests">Hủy</a></div>
+          </form>
+        </section>
+
+        <aside class="panel submission-guide">
+          <div class="guide-icon">✓</div>
+          <h2>Trước khi gửi</h2>
+          <p>Kiểm tra nhanh để tránh hồ sơ phải bổ sung nhiều lần.</p>
+          <ul><li>Chọn đúng loại yêu cầu</li><li>Chọn đúng bộ phận xử lý</li><li>Mô tả rõ mục đích và nội dung</li><li>Theo dõi thông báo sau khi gửi</li></ul>
+          <a href="/procedures">Xem checklist thủ tục →</a>
+        </aside>
+      </div>
+    </section>
+  </main>
+</div>
+
+<%- include("partials/foot") %>

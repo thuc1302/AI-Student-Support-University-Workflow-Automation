@@ -1,0 +1,51 @@
+<aside class="sidebar">
+  <div class="sidebar-brand">
+    <a href="/dashboard" class="vku-logo" aria-label="VKU">VKU</a>
+  </div>
+
+  <nav class="side-nav" aria-label="Điều hướng chính">
+    <span class="nav-label">Hệ thống</span>
+    <a href="/dashboard" class="<%= currentPath === '/dashboard' ? 'active' : '' %>">
+      <span class="nav-icon">⌂</span><span>Tổng quan</span>
+    </a>
+
+    <% if (user.role === "student") { %>
+      <a href="/profile" class="<%= currentPath === '/profile' ? 'active' : '' %>">
+        <span class="nav-icon">◉</span><span>Lý lịch sinh viên</span>
+      </a>
+      <a href="/procedures" class="<%= currentPath === '/procedures' ? 'active' : '' %>">
+        <span class="nav-icon">✓</span><span>Thủ tục & checklist</span>
+      </a>
+      <a href="/chat" class="<%= currentPath === '/chat' ? 'active' : '' %>">
+        <span class="nav-icon">✦</span><span>Chat AI</span>
+      </a>
+      <a href="/requests" class="<%= currentPath === '/requests' || currentPath.startsWith('/requests/') ? 'active' : '' %>">
+        <span class="nav-icon">▣</span><span>Hồ sơ của tôi</span>
+      </a>
+    <% } %>
+
+    <% if (user.role === "staff" || user.role === "admin") { %>
+      <a href="/requests" class="<%= currentPath === '/requests' || currentPath.startsWith('/requests/') ? 'active' : '' %>">
+        <span class="nav-icon">▣</span><span>Danh sách hồ sơ</span>
+      </a>
+    <% } %>
+
+    <% if (user.role === "admin") { %>
+      <span class="nav-label nav-label-spaced">Quản trị</span>
+      <a href="/admin" class="<%= currentPath === '/admin' ? 'active' : '' %>">
+        <span class="nav-icon">⚙</span><span>Quản trị hệ thống</span>
+      </a>
+    <% } %>
+  </nav>
+
+  <div class="sidebar-bottom">
+    <div class="support-card">
+      <span class="support-dot"></span>
+      <div>
+        <strong>Hệ thống hoạt động</strong>
+        <small>Hỗ trợ sinh viên VKU</small>
+      </div>
+    </div>
+    <a class="logout" href="/logout"><span class="nav-icon">↪</span><span>Đăng xuất</span></a>
+  </div>
+</aside>
